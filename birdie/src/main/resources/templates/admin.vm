@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document $userid</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href="/index.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="container-xxl">
+        <div class="row">
+            <div class="col-2 col-lg-1 col-xl-2 border-end">
+                <div class="left-navbar d-flex flex-column position-sticky align-items-end align-items-xl-start">
+                    <div class="my-3">
+                        <i class="fa-brands fa-twitter fs-3 mt-3 text-primary"></i>
+                    </div>
+                    <div class="my-3">
+                    <form id="goHome">
+                        <button class="btn">
+                            <i class="fa-solid fa-house fs-4"></i>
+                            <span class="fs-4 d-none d-xl-inline">Home</span>
+                        </button>
+                        </form>
+                    </div>
+                    <div class="my-3">
+                    <form id="goSearch" method="post">
+                    <button class="btn" type="submit">
+                        <i class="fa-solid fa-magnifying-glass fs-4"></i>
+                        <span class="fs-4 d-none d-xl-inline">Search</span>
+                        <input type="text" id="searchVal" name="searchField" class="form-control mt-2" placeholder="Search Birdie" value=$userid hidden>
+                        </button>
+                        </form>
+                    </div>
+                    <div class="my-3">
+                    <form id="signOut" action="http://localhost:9090/index.html">
+                        <button class="btn">
+                            <i class="fa-solid fa-door-open fs-4"></i>
+                            <span class="fs-4 d-none d-xl-inline">Log Out</span>
+                        </button>
+                        </form>
+                    </div>
+                    <div class="position-absolute" style="bottom: 20px;">
+                        <img src="https://placekitten.com/50/50" class="img-fluid profile-icon">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-xl-6 col-10">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <strong class="fs-4">Home</strong>
+                    </div>
+                    <div class="col text-end">
+                        <i class="fa-solid fa-bell"></i>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-2 col-xl-1">
+                        <img src="https://placekitten.com/50/50" class="img-fluid profile-icon">
+                    </div>
+                    <div class="col-10 mb-2 col-xl-11">
+                    
+                        <form action="/posting/make" method ="post">
+                            <input type="hidden" name="userid" value=$userid>
+                            <textarea class="form-control" name="text" maxlength="250" placeholder="What's going on?..." required></textarea>
+                            <input type="submit" class="btn btn-dark mt-2"></button>
+                        </form>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12" id="tweetCol">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-4 mt-1 border-start d-none d-lg-block">
+                <div class="position-sticky" style="top:0px">
+                   <div class="mt-4">
+                    <form id="searchForm" method="post">
+                        <div class="row">
+                            <div class="col-10 mt-2">
+                                <input type="text" id="searchVal" name="searchField" class="form-control" placeholder="Search Birdie" required>
+                            </div>
+                            <div class="col-2">
+                                <button type="submit" name="searchBtn" class="btn"> 
+                                    <i class="fa-solid fa-magnifying-glass fs-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                    <div class="happening_box mt-5 p-3">
+                        <div>
+                            <h3 class="fs-3">What's happening?</h3>
+                        </div>
+
+                        <div class="row align-items-center my-4">
+                            <div class="col-9">
+                                <div class="text">
+                                    <div><small>COVID-19</small></div>
+                                    <div><strong>COVID-19: News and updates for California</strong></div>
+                                    <div class="fs-6">Updates from Senate</div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <img src="https://placekitten.com/400/400" class="img-fluid" />
+                            </div>
+                        </div>
+                        <div class="row align-items-center my-4">
+                            <div class="col-9">
+                                <div class="text">
+                                    <div><small>COVID-19</small></div>
+                                    <div><strong>COVID-19: News and updates for California</strong></div>
+                                    <div class="fs-6">Updates from Senate</div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <img src="https://placekitten.com/400/400" class="img-fluid" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+fetch("/posting/flagged")
+.then(response => {
+   return response.json();
+})
+.then(function(jsondata){
+    console.log(jsondata);
+    const homeForm = document.getElementById('goHome');
+    homeForm.action = `http://localhost:9090/dashboard/${userid}`;
+
+    const searchForm = document.getElementById('searchForm');
+    searchForm.action = `http://localhost:9090/searchpage/${userid}`
+
+    const searchSideButton = document.getElementById('goSearch');
+    searchSideButton.action = `http://localhost:9090/searchpage/${userid}`
+
+    
+    for(let i = 0; i < jsondata.length; i++){
+        const divTweet = document.createElement('div');
+        divTweet.className = 'tweet';
+    
+        const divRow = document.createElement('div');
+        divRow.className = 'row';
+        divTweet.appendChild(divRow);
+    
+        const divCol1 = document.createElement('div');
+        divCol1.className = 'col-2 col-xl-1';
+        const profilePic = document.createElement('img');
+        profilePic.src = 'https://placekitten.com/40/40';
+        profilePic.className = 'img-fluid profile-icon';
+        divCol1.appendChild(profilePic);
+        divRow.appendChild(divCol1);
+    
+        const divCol2 = document.createElement('div');
+        divCol2.className = 'col-10 col-xl-11';
+        const divUsername = document.createElement('div');
+        divUsername.innerHTML = '<strong>' + jsondata[i].username + '</strong>';
+        divCol2.appendChild(divUsername);
+        const para = document.createElement('p');
+        para.innerHTML = jsondata[i].post;
+        divCol2.appendChild(para);
+        
+        
+        divRow.appendChild(divCol2);
+        //document.body.appendChild(elem);
+        const tweetCol = document.getElementById('tweetCol');
+        tweetCol.appendChild(divTweet);
+        const hr = document.createElement('hr');
+        tweetCol.appendChild(hr);
+
+        const deleteForm = document.createElement('form');
+        const deleteButton = document.createElement('button');
+        deleteButton.value = jsondata[i].id;
+        deleteButton.type = 'submit';
+        deleteButton.innerHTML = 'Delete';
+        deleteButton.className='btn btn-danger';
+        let postid=jsondata[i].id;
+        deleteForm.action = `http://localhost:9090/posting/delete/${postid}`;
+        deleteForm.method ="get";
+        deleteForm.appendChild(deleteButton);
+        divCol2.appendChild(deleteForm);
+
+    }
+});
+
+</script>
+</body>
+
+</html>
